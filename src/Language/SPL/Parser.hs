@@ -36,8 +36,20 @@ act = do
     actNumber <- romanNumber
     _         <- string ": "
     _         <- untilPeriod
+    _         <- skipMany newline
+    scenes    <- many1 (scene <* skipMany newline)
 
-    pure (Act actNumber [])
+    pure (Act actNumber scenes)
+
+scene :: Parser Scene
+scene = do
+    _           <- skipMany space'
+    _           <- string "Scene "
+    sceneNumber <- romanNumber
+    _           <- string ": "
+    _           <- untilPeriod
+
+    pure (Scene sceneNumber)
 
 romanNumber :: Parser RomanNumber
 romanNumber = Text.pack <$> many1 (choice (map char "IVXLCDM")) <?> "Roman number"

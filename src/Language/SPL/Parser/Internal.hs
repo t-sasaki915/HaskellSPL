@@ -8,7 +8,7 @@ module Language.SPL.Parser.Internal
     ) where
 
 import           Control.Applicative  ((<|>))
-import           Data.Attoparsec.Text
+import           Data.Attoparsec.Text (Parser, anyChar, char, manyTill)
 import           Data.Text            (Text)
 import qualified Data.Text            as Text
 
